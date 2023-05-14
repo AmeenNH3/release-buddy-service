@@ -26,14 +26,14 @@ public class AuthenticationService {
       repository.save(user);
       String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(user,token);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
         User user = repository.findByEmail(request.getEmail()).orElseThrow();
         String token = jwtService.generateToken(user);
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse( user, token);
     }
 
 }

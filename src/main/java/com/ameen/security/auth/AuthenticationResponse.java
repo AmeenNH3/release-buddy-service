@@ -1,5 +1,6 @@
 package com.ameen.security.auth;
 
+import com.ameen.security.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class AuthenticationResponse {
+
+    private User user;
     private String token;
 
 

@@ -12,14 +12,14 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/data")
 @Slf4j
+@CrossOrigin(origins = {"http://localhost:5173"})
+
 public class DataController {
 
 
@@ -38,6 +38,14 @@ public class DataController {
         return ticketsRepository.findByCreatedBy(username);
     }
 
+    public boolean isEmpty(HashMap<Character,Integer> map){
+
+        for(Map.Entry<Character,Integer> en : map.entrySet()){
+            if(en.getValue() != 0)return false;
+        }
+
+        return true;
+    }
     @PostMapping("/saveTickets")
     public ResponseEntity<String> saveAllTicketsOftheUserName(@RequestHeader(name ="Authorization") String token, @RequestBody List<Ticket> tickets){
         String username = jwtService.extractUsername(token.substring(7));
