@@ -1,5 +1,5 @@
 package com.ameen.service.model;
 
 public enum Status {
-    NOT_STARTED,PENDING,COMPLETED
+    not_started,pending,completed
 }
