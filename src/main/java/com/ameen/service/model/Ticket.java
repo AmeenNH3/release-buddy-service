@@ -1,6 +1,7 @@
 package com.ameen.service.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -12,10 +13,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 @Document(collection = "tickets")
+@Data
 public class Ticket {
     @Id
     private UUID id;
     private String name;
+
+    private String description;
+    private String owner;
+    private TicketStatus status;
+    private String changeTicketNumber;
+    private Date releaseDate;
+
+    private String workingTeams;
     private List<Stack> stacks;
     private String createdBy;
     @CreatedDate
@@ -25,66 +35,20 @@ public class Ticket {
 
     @Version
     private Long version;
-
     public Ticket(){
 
     }
 
-    public Ticket(UUID id, String name, List<Stack> stacks, String createdBy) {
+    public Ticket(UUID id, String name, String description, String owner, TicketStatus status, String changeTicketNumber, Date releaseDate, String workingTeams, List<Stack> stacks, String createdBy) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.status = status;
+        this.changeTicketNumber = changeTicketNumber;
+        this.releaseDate = releaseDate;
+        this.workingTeams = workingTeams;
         this.stacks = stacks;
         this.createdBy = createdBy;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Stack> getStacks() {
-        return stacks;
-    }
-
-    public void setStacks(List<Stack> stacks) {
-        this.stacks = stacks;
-    }
-    public void setCreatedBy(String createdBy){
-        this.createdBy = createdBy;
-    }
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public Date getCreatedOn() {
-        return createdDate;
-    }
-
-    public Date getLasModifiedDate() {
-        return lasModifiedDate;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", stacks=" + stacks +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdOn=" + createdDate +
-                ", lasModifiedDate=" + lasModifiedDate +
-                '}';
     }
 }

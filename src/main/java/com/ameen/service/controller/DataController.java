@@ -1,4 +1,4 @@
-package com.ameen.service.resources.controller;
+package com.ameen.service.controller;
 
 import com.ameen.security.config.JwtService;
 import com.ameen.service.model.Ticket;
@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/data")
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:5173"})
-
 public class DataController {
 
 
@@ -36,15 +35,6 @@ public class DataController {
         String username = jwtService.extractUsername(token.substring(7));
         log.info("username: {}",username);
         return ticketsRepository.findByCreatedBy(username);
-    }
-
-    public boolean isEmpty(HashMap<Character,Integer> map){
-
-        for(Map.Entry<Character,Integer> en : map.entrySet()){
-            if(en.getValue() != 0)return false;
-        }
-
-        return true;
     }
     @PostMapping("/saveTickets")
     public ResponseEntity<String> saveAllTicketsOftheUserName(@RequestHeader(name ="Authorization") String token, @RequestBody List<Ticket> tickets){
@@ -68,7 +58,6 @@ public class DataController {
                 }
             }
 
-
             List<UUID> ids = tickets.stream().map(Ticket::getId).collect(Collectors.toList());
 
             List<Ticket> ticketsFromDb = ticketsRepository.findByCreatedBy(username);
@@ -78,8 +67,6 @@ public class DataController {
                    ticketsRepository.deleteById(ticket.getId());
                 }
             }
-
-
 
         }catch (Exception e){
             return ResponseEntity.internalServerError().body("Error occurred when saving tickets");
