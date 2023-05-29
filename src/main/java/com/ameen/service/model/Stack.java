@@ -25,13 +25,7 @@ public class Stack {
     private Integer bundleNo;
     private Status status;
     private String owner;
-
-    @CreatedDate
-    @JsonIgnore
     private Date createdDate;
-
-    @LastModifiedDate
-    @JsonIgnore
     private Date lastModifiedDate;
 
     public Stack(UUID id, String stackName, String localBranch, Status testedLB, Status mergedToD, Status testedD, Status mergedToM, Status testedM, Integer bundleNo, Status status, String owner) {
@@ -46,6 +40,9 @@ public class Stack {
         this.bundleNo = bundleNo;
         this.status = status;
         this.owner = owner;
+
+        this.createdDate = new Date();
+        this.lastModifiedDate = new Date();
     }
 
 
