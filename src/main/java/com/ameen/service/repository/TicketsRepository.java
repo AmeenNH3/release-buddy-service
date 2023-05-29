@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface TicketsRepository extends MongoRepository<Ticket, UUID> {
     List<Ticket> findByCreatedBy(String username);
     void deleteById(UUID id);
+
+    List<Ticket> findAllByIdNotIn(List<UUID> receivedTicketIds);
 }

@@ -1,5 +1,6 @@
 package com.ameen.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,30 +22,32 @@ public class Ticket {
 
     private String description;
     private String owner;
-    private TicketStatus status;
+    private TicketStatus ticketStatus;
     private String changeTicketNumber;
     private Date releaseDate;
 
     private String workingTeams;
     private List<Stack> stacks;
     private String createdBy;
+
     @CreatedDate
     private Date createdDate;
     @LastModifiedDate
     private Date lasModifiedDate;
 
     @Version
+    @JsonIgnore
     private Long version;
     public Ticket(){
 
     }
 
-    public Ticket(UUID id, String name, String description, String owner, TicketStatus status, String changeTicketNumber, Date releaseDate, String workingTeams, List<Stack> stacks, String createdBy) {
+    public Ticket(UUID id, String name, String description, String owner, TicketStatus ticketStatus, String changeTicketNumber, Date releaseDate, String workingTeams, List<Stack> stacks, String createdBy) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.owner = owner;
-        this.status = status;
+        this.ticketStatus = ticketStatus;
         this.changeTicketNumber = changeTicketNumber;
         this.releaseDate = releaseDate;
         this.workingTeams = workingTeams;
