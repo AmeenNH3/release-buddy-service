@@ -38,11 +38,16 @@ public class Ticket {
     @Version
     @JsonIgnore
     private Long version;
+
+    private List<UUID> stackOrder;
+    private String ticketNotes;
+
     public Ticket(){
 
     }
 
-    public Ticket(UUID id, String name, String description, String owner, TicketStatus ticketStatus, String changeTicketNumber, Date releaseDate, String workingTeams, List<Stack> stacks, String createdBy) {
+    public Ticket(UUID id, String name, String description, String owner, TicketStatus ticketStatus, String changeTicketNumber, Date releaseDate, String workingTeams, List<Stack> stacks, String createdBy,
+                  List<UUID> stackOrder, String ticketNotes) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,5 +58,7 @@ public class Ticket {
         this.workingTeams = workingTeams;
         this.stacks = stacks;
         this.createdBy = createdBy;
+        this.stackOrder = stackOrder;
+        this.ticketNotes = ticketNotes;
     }
 }
