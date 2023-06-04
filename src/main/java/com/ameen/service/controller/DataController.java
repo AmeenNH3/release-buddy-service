@@ -78,6 +78,37 @@ public class DataController {
 
         return ResponseEntity.ok("Tickets saved successfully");
     }
+
+    @PutMapping("/updateTicket")
+    public ResponseEntity<String> updateTicket(@RequestHeader(name="Authorization") String token, @RequestBody
+                                               Ticket requestBodyData){
+        String userName = jwtService.extractUsername(token.substring(7));
+        Optional<Ticket> ticketData = ticketsRepository.findById(requestBodyData.getId());
+
+        if(ticketData.isEmpty()){
+            return ResponseEntity.badRequest().body("Invalid Input");
+        } else if (!ticketData.get().getCreatedBy().equalsIgnoreCase(userName)) {
+            return ResponseEntity.badRequest().body("editing of tickets that isn't created by you is not allowed");
+        }
+
+        try {
+            Ticket existingTicket = ticketData.get();
+            existingTicket.setTicketNotes(requestBodyData.getTicketNotes());
+            existingTicket.setStackOrder(requestBodyData.getStackOrder());
+            existingTicket.setName(requestBodyData.getName());
+            existingTicket.setDescription(requestBodyData.getDescription());
+            existingTicket.setWorkingTeams(requestBodyData.getWorkingTeams());
+            existingTicket.setChangeTicketNumber(requestBodyData.getChangeTicketNumber());
+            existingTicket.setReleaseDate(requestBodyData.getReleaseDate());
+            existingTicket.setTicketStatus(requestBodyData.getTicketStatus());
+
+            ticketsRepository.save(existingTicket);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("unable to update the data in database! Reason: "+ e.getMessage());
+        }
+        return ResponseEntity.ok("Successfully update the ticket details!");
+    }
+
 //    @PostMapping("/saveTickets")
 //    public ResponseEntity<String> saveAllTickets(@RequestHeader(name = "Authorization") String token, @RequestBody List<Ticket> tickets) {
 //        String username = jwtService.extractUsername(token.substring(7));
