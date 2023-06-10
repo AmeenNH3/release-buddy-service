@@ -78,6 +78,38 @@ public class DataController {
 
         return ResponseEntity.ok("Tickets saved successfully");
     }
+
+    @PutMapping("/updateTicket")
+    public ResponseEntity<String> saveTicket(@RequestHeader(name = "Authorization") String token, @RequestBody Ticket requestBodyData) {
+
+        String username = jwtService.extractUsername(token.substring(7));
+        Optional<Ticket> ticketData = ticketsRepository.findById(requestBodyData.getId());
+
+        //Test
+        if (ticketData.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid input");
+        } else if (!ticketData.get().getCreatedBy().equalsIgnoreCase(username)) {
+            return ResponseEntity.badRequest().body("editing of tickets that isn't created by you isn't allowed");
+        }
+        System.out.println(requestBodyData);
+        try {
+            Ticket existingTicket = ticketData.get();
+            existingTicket.setTicketNotes(requestBodyData.getTicketNotes());
+            existingTicket.setStackOrder(requestBodyData.getStackOrder());
+            existingTicket.setName(requestBodyData.getName());
+            existingTicket.setDescription(requestBodyData.getDescription());
+            existingTicket.setWorkingTeams(requestBodyData.getWorkingTeams());
+            existingTicket.setChangeTicketNumber(requestBodyData.getChangeTicketNumber());
+            existingTicket.setReleaseDate(requestBodyData.getReleaseDate());
+            existingTicket.setTicketStatus(requestBodyData.getTicketStatus());
+            ticketsRepository.save(existingTicket);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("unable to update the data in database! Reason: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok("request completed successfully");
+    }
+
 //    @PostMapping("/saveTickets")
 //    public ResponseEntity<String> saveAllTickets(@RequestHeader(name = "Authorization") String token, @RequestBody List<Ticket> tickets) {
 //        String username = jwtService.extractUsername(token.substring(7));
