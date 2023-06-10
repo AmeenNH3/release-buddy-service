@@ -41,6 +41,7 @@ public class Ticket {
 
     private List<UUID> stackOrder;
     private String ticketNotes;
+
     public Ticket(){
 
     }
@@ -57,7 +58,7 @@ public class Ticket {
         this.workingTeams = workingTeams;
         this.stacks = stacks;
         this.createdBy = createdBy;
-        this.ticketNotes = ticketNotes;
         this.stackOrder = stackOrder;
+        this.ticketNotes = ticketNotes;
     }
 }

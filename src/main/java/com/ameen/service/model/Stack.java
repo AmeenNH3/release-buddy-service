@@ -30,7 +30,8 @@ public class Stack {
     private String previousProductionBundle;
     private String newProductionBundle;
 
-    public Stack(UUID id, String stackName, String localBranch, Status testedLB, Status mergedToD, Status testedD, Status mergedToM, Status testedM, Integer bundleNo, Status status, String owner, String previousProductionBundle, String newProductionBundle) {
+    public Stack(UUID id, String stackName, String localBranch, Status testedLB, Status mergedToD, Status testedD, Status mergedToM, Status testedM, Integer bundleNo, Status status, String owner,
+                 String previousProductionBundle, String newProductionBundle) {
         this.id = id;
         this.stackName = stackName;
         this.localBranch = localBranch;
@@ -45,7 +46,6 @@ public class Stack {
 
         this.createdDate = new Date();
         this.lastModifiedDate = new Date();
-
         this.previousProductionBundle = previousProductionBundle;
         this.newProductionBundle = newProductionBundle;
     }
